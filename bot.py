@@ -2,15 +2,18 @@ import discord
 import dotenv
 from random import choice
 from picselector import menu
+from embedcreator import embcreate
 
 dotenv.load_dotenv()
 
 client = discord.Client()
-simounao = choice(['Sim, eu acho!', 'Não, eu não acho.', 'Talvez...'])
 msg_user = msg = bmsg = pedidouser = pedidoid = None
 start = discord.Embed(title='Escolha seu nsfw da zero two! <:zerogun:738732464117121045>: ',
                       description='**1- Imagens\n 2- Gifs\n 3- Imagens realistas\n 4- Ahegao**\n\n AVISO!!! Não nos responsabilizamos pelo seu pedido<:zerotwocrazy:738974003280216194>',
                       color=1752220)
+error = discord.Embed(title='<:dissapointment:738974002944409642>Mds tu é burro cara, usa assim:',
+                      color=15158332,
+                      description='!embed **[título] [descrição]**')
 
 @client.event
 async def on_ready():
@@ -52,9 +55,14 @@ async def on_message(message):
 https://cdn.discordapp.com/attachments/497062752473317397/736651644468723842/eduardo_1.mp4""")
 
     if args.startswith('!pergunta ') and len(args) > 11:
-        global simounao
-        await message.channel.send(simounao)
-        simounao = choice(['Sim, eu acho!', 'Não, eu não acho.', 'Talvez...'])
+        await message.channel.send(choice(['Sim, eu acho!', 'Não, eu não acho.', 'Talvez...']))
+
+    if args.startswith('!embed '):
+        await embcreate(message, message.content, error)
+        await message.delete()
+    if args == '!embed':
+        await message.channel.send(embed=error)
+
 
 @client.event
 async def on_reaction_add(reaction, user):
