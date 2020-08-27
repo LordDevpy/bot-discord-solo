@@ -27,8 +27,11 @@ async def on_message(message):
     # argumentos para não: responder outro bot ou si mesmo/ não responder dms
     if message.author == client.user:
         return
-    if discord.ChannelType.private:
-        return
+    elif discord.ChannelType.private:
+        if args == 'manda nudes':
+            await menu('1', message)
+        else:
+            return
 
 
     if args == 'bom dia':  # comando bom dia
