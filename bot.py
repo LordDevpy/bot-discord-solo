@@ -27,7 +27,7 @@ async def on_message(message):
     # argumentos para não: responder outro bot ou si mesmo/ não responder dms
     if message.author == client.user:
         return
-    if message.channel.name == 'dm':
+    if discord.ChannelType.private:
         return
 
 
